@@ -6,7 +6,7 @@ cd /tmp/rom
 git config --global user.name "hugo-adword"
 git config --global user.email "00.hugo.ad@gmail.com"
 # Repo init command, that -device,-mips,-darwin,-notdefault part will save you more time and storage to sync, add more according to your rom and choice. Optimization is welcomed! Let's make it quit, and with depth=1 so that no unnecessary things.
-repo init -q --no-repo-verify --depth=1 -u git://github.com/DerpFest-11/manifest.git -b 11 -g default,-device,-mips,-darwin,-notdefault
+repo init -q --no-repo-verify --depth=1 -u https://github.com/PixelExperience/manifest -b eleven -g default,-device,-mips,-darwin,-notdefault
 
 # Clone local manifest! So that no need to manually git clone repos or change hals, you can use normal git clone or rm and re clone, they will cost little more time, and you may get timeout! Let's make it quit and depth=1 too.
 # will setup later
@@ -15,9 +15,9 @@ repo init -q --no-repo-verify --depth=1 -u git://github.com/DerpFest-11/manifest
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j 30 || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j 8
 
 #device
-git clone https://github.com/adnan-44/device_xiaomi_vince --single-branch -b test device/xiaomi/vince
-git clone https://github.com/adnan-44/vendor_xiaomi_vince --single-branch -b test vendor/xiaomi/vince
+git clone https://github.com/adnan-44/device_xiaomi_vince --single-branch -b aosp-11 device/xiaomi/vince
+git clone https://github.com/adnan-44/vendor_xiaomi_vince --single-branch -b aosp-11 vendor/xiaomi/vince
 git clone https://github.com/Blacksuan19/kernel_dark_ages_vince.git --single-branch -b darky kernel/xiaomi/vince
 rm -rf hardware/qcom-caf/wlan && git clone https://android.googlesource.com/platform/hardware/qcom/wlan hardware/qcom-caf/wlan
 
-cd kernel/xiaomi/vince && git checkout darky && git revert fec013b9f5bb70c1e51285aa6e042f21f4298447 --no-edit && cd ../../.. 
+cd kernel/xiaomi/vince && git checkout darky && git revert fec013b9f5bb70c1e51285aa6e042f21f4298447 --no-edit && cd ../../..
