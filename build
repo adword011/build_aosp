@@ -62,8 +62,9 @@ mka system-api-stubs-docs || echo no problem
 mka test-api-stubs-docs || echo no problem
 
 mka derp -j10 \
-        && send_zip=$(up out/target/product/vince/*zip) && tg $id "Build Succeed!
+        && send_zip=$(up out/target/product/vince/*zip) && up out/target/product/vince/DerpFest*.md5sum && up out/target/product/vince/DerpFest*.json && up out/target/product/vince/*change* && tg $id "Build Succeed!
 $send_zip" \
 	    || tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
-up out/target/product/vince/*md5sum
+
+tg $id "Build uploaded"
 ccache -s # Let's print ccache statistics finally
