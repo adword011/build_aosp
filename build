@@ -55,14 +55,19 @@ tg $id "Got some ccache (PE)"
 
 # Upload rom zip file if succeed to build! Send notification to tg! And send shell to tg if build fails!
 
+# Send Build started message on start of build
+tg $id "Build started (PE)"
+
 # Let's compile by parts! Coz of ram issue!
 #mka api-stubs-docs || echo no problem
 #mka system-api-stubs-docs || echo no problem
 #mka test-api-stubs-docs || echo no problem
 
-#mka bacon -j10 \
-#        && send_zip=$(up out/target/product/vince/*zip) && tg $id "Build Succeed!
-#$send_zip" \
-#	    || tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
-#up out/target/product/vince/*md5sum
-#ccache -s # Let's print ccache statistics finally
+mka bacon -j10 \
+        && send_zip=$(up out/target/product/vince/*zip) && tg $id "Build Succeed! (PE) $send_zip" 
+up out/target/product/vince/*md5sum && echo "Sent md5sum file "
+#	    || tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h # later we'll  check this
+
+tg $id "Build uploaded (PE)"
+ls out/target/product/vince # Show out directory content
+ccache -s # Let's print ccache statistics finally

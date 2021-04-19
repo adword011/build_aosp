@@ -10,6 +10,6 @@ com ()
 
 time com pe_ccache 1 # Compression level 1, its enough
 
-mkdir -p ~/.config/rclone
+#mkdir -p ~/.config/rclone
 echo "$rclone_config" > ~/.config/rclone/rclone.conf # Write rclone config found from env variable, so that cloud storage can be used to upload ccache
 time rclone copy pe_ccache.tar.gz pe_drive:ccache -P # pe_drive is my rclone config name (first line without [] of ~/.config/rclone/rclone.conf file from rclone setupped pc), ccache/ci2 is where ccache will be saved in my cloud, use yours one
