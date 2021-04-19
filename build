@@ -65,9 +65,10 @@ mka system-api-stubs-docs || echo no problem
 mka test-api-stubs-docs || echo no problem
 
 mka derp -j10 \
-        && send_zip=$(up out/target/product/vince/*zip) && up out/target/product/vince/DerpFest*.md5sum && up out/target/product/vince/vince.json && tg $id "Build Succeed!
-$send_zip" \
-	    || tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
+        && send_zip=$(up out/target/product/vince/*zip) && tg $id "Build Succeed! $send_zip" 
+up out/target/product/vince/DerpFest*.md5sum && echo "Sent md5sum file "
+up out/target/product/vince/vince.json && echo "Sent json file "
+#	    || tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h # later we'll  check this
 
 tg $id "Build uploaded"
 ls out/target/product/vince # Show out directory content
